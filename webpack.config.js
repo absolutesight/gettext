@@ -1,3 +1,4 @@
+const ESLintPlugin = require('eslint-webpack-plugin');
 const path = require( 'path' );
 
 const config = {};
@@ -24,40 +25,17 @@ config.externals = {
 	'hoist-non-react-statics': 'hoistNonReactStatic',
 };
 
-// define rules
-config.module = {
-	rules: [
-		{
-			test: /\.js$/,
-			enforce: 'pre',
-			exclude: /node_modules|dist|lib/,
-			use: [
-				{
-					loader: 'eslint-loader',
-					options: {
-						failOnWarning: false,
-						failOnError: true
-					}
-				}
-			]
-		},
-		{
-			test: /\.js$/,
-			exclude: /node_modules/,
-			use: {
-				loader: 'babel-loader',
-				options: {
-					babelrc: false,
-					configFile: false,
-					cacheDirectory: true,
-					presets: [
-						'@babel/preset-env',
-						'@babel/preset-react'
-					]
-				}
-			}
-		},
-	],
-};
+config.plugins = [
+	new ESLintPlugin({
+		extensions: [`js`, `jsx`],
+		exclude: [`node_modules`,`dist`,`lib`],
+		failOnWarning: false,
+		failOnError: true
+	}),
+	new ESLintPlugin({
+		extensions: [`js`, `jsx`],
+		exclude: [`node_modules`]
+	})
+];
 
 module.exports = config;
