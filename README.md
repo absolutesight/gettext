@@ -1,6 +1,4 @@
-# react-gettext 1.0.2
-
-[![npm version](https://badge.fury.io/js/react-gettext.svg)](https://badge.fury.io/js/react-gettext) [![Build Status](https://travis-ci.org/eugene-manuilov/react-gettext.svg?branch=master)](https://travis-ci.org/eugene-manuilov/react-gettext)
+# @absolutesight/react-gettext 1.0.0
 
 A tiny React library that helps to implement internalization in your application using gettext functions. It uses [React Context API](https://reactjs.org/docs/context.html) to expose gettext functions to children components.
 
@@ -9,7 +7,7 @@ A tiny React library that helps to implement internalization in your application
 > **Note:** This library requires **React 16.3 or later**
 
 ```
-npm i react react-gettext
+npm i react @absolutesight/react-gettext
 ```
 
 ## Usage
@@ -17,8 +15,8 @@ npm i react react-gettext
 To use this library in your application, you need to do a few simple steps:
 
 1. Prepare translations and define plural form functions.
-1. Add `TextdomainContext.Provider` provider to the root of your application.
-1. Updated your components to use context functions, provided by `TextdomainContext`, to translate text messages.
+1. Add `TextDomainContext.Provider` provider to the root of your application.
+1. Updated your components to use context functions, provided by `TextDomainContext`, to translate text messages.
 
 Let's take a closer look at each step. First of all, you to create translation catalogs and prepare plural form functions for every language that you are going to use. Each language needs one catalog and one plural form function.
 
@@ -41,26 +39,26 @@ function getPluralForm(n) {
 }
 ```
 
-The next step is to pass translations and plural form function for the current language to the `buildTextdomain` function. It will create APIs that need to be passed to the `TextdomainContext.Provider` provider that you need to add to the root of your project:
+The next step is to pass translations and plural form function for the current language to the `buildTextDomain` function. It will create APIs that need to be passed to the `TextDomainContext.Provider` provider that you need to add to the root of your project:
 
 ```javascript
 import React, { Component } from 'react';
-import { TextdomainContext, buildTextdomain } from 'react-gettext';
+import { TextDomainContext, buildTextDomain } from '@absolutesight/react-gettext';
 
 class MyApp extends Component {
 
     constructor(props) {
         super(props);
-        this.state = { textdomain: buildTextdomain(...) };
+        this.state = { textDomain: buildTextDomain(...) };
     }
 
     render() {
         return (
             <div>
-                <TextdomainContext.Provider value={this.state.textdomain}>
+                <TextDomainContext.Provider value={this.state.textDomain}>
                     <ComponentA />
                     ...
-                </TextdomainContext>
+                </TextDomainContext>
             </div>
         );
     }
@@ -68,13 +66,13 @@ class MyApp extends Component {
 }
 ```
 
-> **Note:** Please, pay attention that you need to avoid passing the results of `buildTextdomain` function directly into `TextdomainContext.Provider`'s value to escape unintentional renders in consumers when a provider’s parent re-renders.
+> **Note:** Please, pay attention that you need to avoid passing the results of `buildTextDomain` function directly into `TextDomainContext.Provider`'s value to escape unintentional renders in consumers when a provider’s parent re-renders.
 
 Finally, the last step is to update your descendant components to consume these context APIs. Import `TexdomainContext` in the child component and assign it to the component `contextType` static properly. It will expose gettext APIs to that component via `this.context` field:
 
 ```javascript
 import React, { Component } from "react";
-import { TextdomainContext } from "react-gettext";
+import { TextDomainContext } from "@absolutesight/react-gettext";
 
 class ComponentA extends Component {
   render() {
@@ -84,7 +82,7 @@ class ComponentA extends Component {
   }
 }
 
-ComponentA.contextType = TextdomainContext;
+ComponentA.contextType = TextDomainContext;
 ```
 
 ## An example
@@ -121,12 +119,12 @@ export default class Header extends Component {
 }
 ```
 
-To make it translatable, you need to update your `app.js` file to use TextdomainContext provider and build textdomain using messages list and plural form function:
+To make it translatable, you need to update your `app.js` file to use TextDomainContext provider and build textDomain using messages list and plural form function:
 
 ```diff
   // app.js
   import React, { Component } from 'react';
-+ import { TextdomainContext, buildTextdomain } from 'react-gettext';
++ import { TextDomainContext, buildTextDomain } from '@absolutesight/react-gettext';
   import Header from './Header';
   import Footer from './Footer';
 
@@ -135,7 +133,7 @@ To make it translatable, you need to update your `app.js` file to use Textdomain
 +     constructor(props) {
 +         super(props);
 +         this.state = {
-+             textdomain: buildTextdomain(
++             textDomain: buildTextDomain(
 +                 {
 +                     'Welcome to my application!': 'Bienvenido a mi aplicación!',
 +                     // ...
@@ -148,11 +146,11 @@ To make it translatable, you need to update your `app.js` file to use Textdomain
       render() {
           return (
               <div id="app">
-+                 <TextdomainContext.Provider value={this.state.textdomain}>
++                 <TextDomainContext.Provider value={this.state.textDomain}>
                       <Header />
                       ...
                       <Footer />
-+                 </TextdomainContext.Provider>
++                 </TextDomainContext.Provider>
               </div>
           );
       }
@@ -164,7 +162,7 @@ After doing it you can start using `gettext`, `ngettext`, `xgettext` and `nxgett
 ```diff
   // Header.js
   import React, { Component } from 'react';
-+ import { TextdomainContext } from 'react-gettext';
++ import { TextDomainContext } from 'absolutesight/react-gettext';
 
   export default class Header extends Component {
 
@@ -178,24 +176,22 @@ After doing it you can start using `gettext`, `ngettext`, `xgettext` and `nxgett
 
   }
 
-+ Header.contextType = TextdomainContext;
++ Header.contextType = TextDomainContext;
 ```
-
-Check a [sample](https://github.com/eugene-manuilov/react-gettext/tree/master/examples/poedit) application to see how it works.
 
 ## Documentation
 
-### buildTextdomain(translations, pluralForm)
+### buildTextDomain(translations, pluralForm)
 
-Builds gettext APIs for TextdomainContext provider that will work with provided translations.
+Builds gettext APIs for TextDomainContext provider that will work with provided translations.
 
 - **translations**: an object with translated messages.
 - **pluralForm**: a function that determines a plural form or a stringular reresentation of it.
 
 ```javascript
-const api = buildTextdomain( { ... }, n => n == 1 ? 0 : 1 );
+const api = buildTextDomain( { ... }, n => n == 1 ? 0 : 1 );
 // or
-const api = buildTextdomain( { ... }, 'n == 1 ? 0 : 1' );
+const api = buildTextDomain( { ... }, 'n == 1 ? 0 : 1' );
 ```
 
 ### gettext(message)
@@ -269,7 +265,7 @@ The proper way to use this library is described in the [Usage](#usage) section, 
 
 ### withGettext(translations, pluralForms, options)
 
-Higher-order function which is exported by default from `react-gettext` package. It accepts two arguments and returns function to create higher-order component.
+Higher-order function which is exported by default from `@absolutesight/react-gettext` package. It accepts two arguments and returns function to create higher-order component.
 
 - **translations**: a hash object or a function which returns hash object where keys are original messages and values are translated messages.
 - **pluralForms**: a string to calculate plural form (used by [Gettext PO](http://docs.translatehouse.org/projects/localization-guide/en/latest/l10n/pluralforms.html?id=l10n/pluralforms)) or a function which accepts a number and calculates a plural form number. Pay attentions that plural forms are zero-based what means to get 1st plural form it should return 0, to get 2nd - 1, and so on.
@@ -325,7 +321,7 @@ const HOC = withGettext()(App);
 ReactDOM.render(<HOC translations={getTranslations} plural={getPluralForms}>...</HOC>, ...);
 ```
 
-One more alternative is to not create HOC, but use Textdomain component directly. You can import it using `import { Textdomain } from 'react-gettext'` and use it as a regular component which will provide context functions to translate your messages. Just don't forget to pass `translations` and `plural` props to this component when you render it.
+One more alternative is to not create HOC, but use TextDomain component directly. You can import it using `import { Textdomain } from '@absolutesight/react-gettext'` and use it as a regular component which will provide context functions to translate your messages. Just don't forget to pass `translations` and `plural` props to this component when you render it.
 
 ## Poedit
 
@@ -362,7 +358,7 @@ If you prefer using npm scripts, then you can add the following command to your 
 
 ## Contribute
 
-Want to help or have a suggestion? Open a [new ticket](https://github.com/eugene-manuilov/react-gettext/issues/new) and we can discuss it or submit pull request. Please, make sure you run `npm test` before submitting a pull request.
+I will provide this information later
 
 ## License
 

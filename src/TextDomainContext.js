@@ -1,6 +1,6 @@
 import React from 'react';
-import buildTextdomain from './buildTextdomain';
+import buildTextDomain from './buildTextDomain';
 
-const TextdomainContext = React.createContext(buildTextdomain({}, 'n != 1'));
+const TextDomainContext = React.createContext(buildTextDomain({}, 'n != 1'));
 
-export default TextdomainContext;
+export default TextDomainContext;

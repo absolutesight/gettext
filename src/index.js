@@ -1,12 +1,12 @@
 import withGettext from './withGettext';
-import Textdomain from './Textdomain';
-import TextdomainContext from './TextdomainContext';
-import buildTextdomain from './buildTextdomain';
+import TextDomain from './TextDomain';
+import TextDomainContext from './TextDomainContext';
+import buildTextDomain from './buildTextDomain';
 
 export {
-	Textdomain,
-	TextdomainContext,
-	buildTextdomain,
+	TextDomain,
+	TextDomainContext,
+	buildTextDomain,
 };
 
 export default withGettext;

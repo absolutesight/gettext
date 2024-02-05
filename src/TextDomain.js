@@ -8,7 +8,7 @@ import {
 	nxgettext,
 } from './gettext';
 
-class Textdomain extends Component {
+class TextDomain extends Component {
 
 	getChildContext() {
 		const self = this;
@@ -48,7 +48,7 @@ class Textdomain extends Component {
 
 }
 
-Textdomain.propTypes = {
+TextDomain.propTypes = {
 	translations: PropTypes.oneOfType([
 		PropTypes.func,
 		PropTypes.objectOf(PropTypes.oneOfType([
@@ -66,17 +66,17 @@ Textdomain.propTypes = {
 	]),
 };
 
-Textdomain.defaultProps = {
+TextDomain.defaultProps = {
 	translations: {},
 	plural: 'n != 1',
 	children: [],
 };
 
-Textdomain.childContextTypes = {
+TextDomain.childContextTypes = {
 	gettext: PropTypes.func,
 	ngettext: PropTypes.func,
 	xgettext: PropTypes.func,
 	nxgettext: PropTypes.func,
 };
 
-export default Textdomain;
+export default TextDomain;

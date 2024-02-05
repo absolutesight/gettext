@@ -1,11 +1,11 @@
 import React from 'react';
 import hoistNonReactStatic from 'hoist-non-react-statics';
-import Textdomain from './Textdomain';
+import TextDomain from './TextDomain';
 
 const withGettext = (translations = {}, pluralForm = 'n != 1', options = {}) => (WrappedComponent) => {
 	const args = Object.assign({ withRef: false }, options);
 
-	class WithGettext extends Textdomain {
+	class WithGettext extends TextDomain {
 
 		getWrappedComponent() {
 			return this.refs.wrappedComponent;

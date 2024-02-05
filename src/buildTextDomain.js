@@ -6,7 +6,7 @@ import { gettext, ngettext, nxgettext, xgettext } from "./gettext";
  * @param {any} plural TODO: No idea obout type
  * @returns {object} JSON
  */
-function buildTextdomain(translations = {}, plural = "n != 1") {
+function buildTextDomain(translations = {}, plural = "n != 1") {
   return {
     gettext: gettext.bind(null, translations),
     ngettext: ngettext.bind(null, translations, plural),
@@ -15,4 +15,4 @@ function buildTextdomain(translations = {}, plural = "n != 1") {
   };
 }
 
-export default buildTextdomain;
+export default buildTextDomain;
