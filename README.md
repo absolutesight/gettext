@@ -1,4 +1,4 @@
-# @absolutesight/react-gettext 1.0.0
+# @absolutesight/react-gettext 1.0.2
 
 A tiny React library that helps to implement internalization in your application using gettext functions. It uses [React Context API](https://reactjs.org/docs/context.html) to expose gettext functions to children components.
 

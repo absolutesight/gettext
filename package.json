@@ -7,7 +7,7 @@
   "bugs": {
     "url": "https://absolutesight.com"
   },
-  "version": "1.0.0",
+  "version": "1.0.2",
   "main": "src/index.js",
   "files": [
     "*.md",
@@ -23,7 +23,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git@github.com:eugene-manuilov/react-gettext.git"
+    "url": "git+ssh://git@github.com/absolutesight/gettext"
   },
   "scripts": {
     "build:win": "npm run build:commonjs:win & npm run build:umd & npm run build:umd:min:win",
