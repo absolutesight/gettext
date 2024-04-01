@@ -6,7 +6,7 @@ import {
 	ngettext,
 	xgettext,
 	nxgettext,
-} from './gettext';
+} from './gettext.js';
 
 class TextDomain extends Component {
 

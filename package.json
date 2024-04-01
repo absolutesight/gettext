@@ -7,7 +7,7 @@
   "bugs": {
     "url": "https://absolutesight.com"
   },
-  "version": "1.0.2",
+  "version": "1.0.4",
   "main": "src/index.js",
   "files": [
     "*.md",
@@ -79,5 +79,6 @@
       "<rootDir>/__tests__/**/[^_]*.js"
     ],
     "verbose": true
-  }
+  },
+  "type": "module"
 }

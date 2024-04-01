@@ -1,6 +1,6 @@
 import React from 'react';
 import hoistNonReactStatic from 'hoist-non-react-statics';
-import TextDomain from './TextDomain';
+import TextDomain from './TextDomain.js';
 
 const withGettext = (translations = {}, pluralForm = 'n != 1', options = {}) => (WrappedComponent) => {
 	const args = Object.assign({ withRef: false }, options);
