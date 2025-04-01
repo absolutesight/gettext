@@ -353,8 +353,35 @@ msgstr ""
 If you prefer using npm scripts, then you can add the following command to your `package.json` file to extract static copy and generate POT file using CLI commands. Make sure, you have correct `project` and `output` paths.
 
 ```
-"gettext:extract": "find /path/to/project -name \"*.js\" | xargs xgettext --from-code=UTF-8 --language=JavaScript --keyword=gettext --keyword=ngettext:1,2 --keyword=xgettext:1,2c --keyword=nxgettext:1,2,4c --output=/path/to/project/projectname.pot --sort-by-file --package-name=\"My Project Name\" --package-version=\"1.0.0\""
+"gettext:convert": "gettextjs --json ./",
+"gettext:compile": "find ./languages/LC_MESSAGES -name \\*.po -execdir sh -c 'msgfmt \"$0\" -o `basename $0 .po`.mo' '{}' \\;",
+"gettext": "npm run gettext:compile && npm run gettext:convert",
+"gettext:extract": "find /path/to/project -name \"*.js\" -not -path './node_modules/*' -not -path './node_modules/*' | xargs xgettext --from-code=UTF-8 --language=JavaScript --keyword=gettext --keyword=gettext_next --keyword=ngettext:1,2 --keyword=xgettext:1,2c --keyword=nxgettext:1,2,4c --output=./location/top/pot/file/example.pot --sort-by-file --package-name=\"My Project Name\" --package-version=\"0.1.0\"",
 ```
+
+## Requirements
+### For Ubuntu
+```sudo apt update && sudo apt install gettext -y```
+
+### For macOS (using Homebrew):
+```
+brew install gettext
+brew link --force gettext
+```
+
+### For Arch Linux:
+```
+sudo pacman -S gettext
+```
+
+### For Windows (using Chocolatey):
+```
+choco install gettext
+```
+
+# Information Related to next.js
+I have added the next.js support in my code. For this you need to use `gettext_next` function instead of `gettext`.
+If you see that some text is not translating properly. You can define variable with `gettext_next` function and then use that variable in your JSX.
 
 ## Contribute
 
