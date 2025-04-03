@@ -22,12 +22,12 @@ Let's take a closer look at each step. First of all, you to create translation c
 
 The translation catalog is an object that contains key/value pairs where keys are original singular messages and values are translations. If you have a message that can have plural forms, the value for it should be an array with translations where each translation corresponds to appropriate plural form. Finally, if you want to use a context with your messages, then it should be prepended to the message itself and separated by using `\u0004` (end of transition) character. Here is an example:
 
-```javascript
+```json
 {
-	"Hello world!": "¡Hola Mundo!", // regular message
-	"article": ["artículo", "artículos"], // plural version
-	"Logo link\u0004Homepage": "Página principal", // single message with "Logo link" contex
-	"Search results count\u0004article": ["artículo", "artículos"], // plural version with "Search results count" context
+	"Hello world!": "¡Hola Mundo!",
+	"article": ["artículo", "artículos"],
+	"Logo link\u0004Homepage": "Página principal",
+	"Search results count\u0004article": ["artículo", "artículos"]
 }
 ```
 
@@ -49,7 +49,7 @@ class MyApp extends Component {
 
     constructor(props) {
         super(props);
-        this.state = { textDomain: buildTextDomain(...) };
+        this.state = { textDomain: buildTextDomain("...") };
     }
 
     render() {
@@ -57,8 +57,7 @@ class MyApp extends Component {
             <div>
                 <TextDomainContext.Provider value={this.state.textDomain}>
                     <ComponentA />
-                    ...
-                </TextDomainContext>
+                </TextDomainContext.Provider>
             </div>
         );
     }
@@ -306,7 +305,7 @@ As an alternative you can pass translations and plural form as properties to hig
 function getTranslations() {
     return {
         'Some text': 'Some translated text',
-        ...
+        // ...
     };
 }
 
@@ -316,9 +315,9 @@ function getPluralForms(n) {
 
 const HOC = withGettext()(App);
 
-...
+// ...
 
-ReactDOM.render(<HOC translations={getTranslations} plural={getPluralForms}>...</HOC>, ...);
+ReactDOM.render(<HOC translations={getTranslations} plural={getPluralForms}>...</HOC>, /* ... */);
 ```
 
 One more alternative is to not create HOC, but use TextDomain component directly. You can import it using `import { Textdomain } from '@absolutesight/react-gettext'` and use it as a regular component which will provide context functions to translate your messages. Just don't forget to pass `translations` and `plural` props to this component when you render it.
@@ -352,16 +351,22 @@ msgstr ""
 
 If you prefer using npm scripts, then you can add the following command to your `package.json` file to extract static copy and generate POT file using CLI commands. Make sure, you have correct `project` and `output` paths.
 
-```
-"gettext:convert": "gettextjs --json ./",
-"gettext:compile": "find ./languages/LC_MESSAGES -name \\*.po -execdir sh -c 'msgfmt \"$0\" -o `basename $0 .po`.mo' '{}' \\;",
-"gettext": "npm run gettext:compile && npm run gettext:convert",
-"gettext:extract": "find /path/to/project -name \"*.js\" -not -path './node_modules/*' -not -path './node_modules/*' | xargs xgettext --from-code=UTF-8 --language=JavaScript --keyword=gettext --keyword=gettext_next --keyword=ngettext:1,2 --keyword=xgettext:1,2c --keyword=nxgettext:1,2,4c --output=./location/top/pot/file/example.pot --sort-by-file --package-name=\"My Project Name\" --package-version=\"0.1.0\"",
+```json
+{
+  "scripts": {
+    "gettext:convert": "gettextjs --json ./",
+    "gettext:compile": "find ./languages/LC_MESSAGES -name \\*.po -execdir sh -c 'msgfmt \"$0\" -o `basename $0 .po`.mo' '{}' \\;",
+    "gettext": "npm run gettext:compile && npm run gettext:convert",
+    "gettext:extract": "find /path/to/project -name \"*.js\" -not -path './node_modules/*' -not -path './node_modules/*' | xargs xgettext --from-code=UTF-8 --language=JavaScript --keyword=gettext --keyword=gettext_next --keyword=ngettext:1,2 --keyword=xgettext:1,2c --keyword=nxgettext:1,2,4c --output=./location/top/pot/file/example.pot --sort-by-file --package-name=\"My Project Name\" --package-version=\"0.1.0\""
+  }
+}
 ```
 
 ## Requirements
 ### For Ubuntu
-```sudo apt update && sudo apt install gettext -y```
+```
+sudo apt update && sudo apt install gettext -y
+```
 
 ### For macOS (using Homebrew):
 ```
@@ -382,6 +387,21 @@ choco install gettext
 # Information Related to next.js
 I have added the next.js support in my code. For this you need to use `gettext_next` function instead of `gettext`.
 If you see that some text is not translating properly. You can define variable with `gettext_next` function and then use that variable in your JSX.
+
+```javascript
+import * as ProtoTypes from "prop-types";
+import {GetText} from "@/components";
+
+export const gettext_next = (text) => {
+  text = text.replace("%%", "%");
+  return <GetText>{text}</GetText>;
+};
+
+gettext_next.protoTypes = {
+  text: ProtoTypes.string
+};
+
+```
 
 ## Contribute
 
