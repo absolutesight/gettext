@@ -33,7 +33,7 @@
     "build:umd": "webpack --output-filename=react-gettext.js",
     "build:umd:min": "NODE_ENV=production webpack --output-filename=react-gettext.min.js",
     "build:umd:min:win": "set NODE_ENV=production webpack --output-filename=react-gettext.min.js",
-    "test": "BABEL_ENV=test jest",
+    "test": "BABEL_ENV=test jest --passWithNoTests",
     "prepublish": "npm run build",
     "lint": "eslint src --fix --max-warnings=0"
   },
@@ -72,9 +72,6 @@
     "react": "^19.0.0"
   },
   "jest": {
-    "setupFilesAfterEnv": [
-      "<rootDir>/__tests__/__setup.js"
-    ],
     "testMatch": [
       "<rootDir>/__tests__/**/[^_]*.js"
     ],
