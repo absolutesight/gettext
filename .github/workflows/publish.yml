@@ -66,11 +66,11 @@ jobs:
 
       - name: Check version and publish to NPM
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ vars.NPM_TOKEN || secrets.NPM_TOKEN }}
         run: |
           if [ -z "$NODE_AUTH_TOKEN" ]; then
-            echo "❌ Error: NPM_TOKEN secret is not set or empty in GitHub repository secrets."
-            echo "Please go to Repository Settings > Secrets and variables > Actions > Repository secrets and add NPM_TOKEN."
+            echo "❌ Error: NPM_TOKEN is not set or empty in GitHub repository variables or secrets."
+            echo "Please go to Repository Settings > Secrets and variables > Actions and add NPM_TOKEN under Variables or Secrets."
             exit 1
           fi
 
