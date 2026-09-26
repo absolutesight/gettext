@@ -1,8 +1,27 @@
 # @absolutesight/react-gettext
 
-A tiny React library that helps to implement internalization in your application using gettext functions. It uses [React Context API](https://reactjs.org/docs/context.html) to expose gettext functions to children components.
+> [!WARNING]
+> ### ⚠️ DEPRECATION NOTICE: This package is obsolete and no longer maintained
+>
+> **`@absolutesight/react-gettext` has been replaced by [**`@absolutesight/gettext`**](https://www.npmjs.com/package/@absolutesight/gettext).**
+>
+> Please migrate to the new package:
+>
+> ```bash
+> npm install @absolutesight/gettext
+> ```
+>
+> #### Why switch to [`@absolutesight/gettext`](https://www.npmjs.com/package/@absolutesight/gettext)?
+> - 🌐 **Universal Framework Support**: While this old library only supported React.js and Next.js, the new package works across **all JavaScript frameworks and environments** — React, Next.js (App & Pages Router), Vue, Svelte, Node.js, and vanilla JavaScript.
+> - ⚡ **High Performance & Zero Dependencies**: Lightweight, tree-shakeable, and built with modern TypeScript.
+> - 🧩 **Full WordPress Parity**: Complete implementation of WordPress-standard gettext functions (`__()`, `_n()`, `_x()`, `_nx()`, `_noop()`, `sprintf()`), PO/MO/JSON file parsing, and JSX interpolation.
+> - 🔒 **Safe Plural Evaluation**: Secure AST-based plural evaluator replacing insecure `eval()`.
+>
+> 👉 **Documentation & Migration Guide:** [https://www.npmjs.com/package/@absolutesight/gettext](https://www.npmjs.com/package/@absolutesight/gettext)
 
-## Instalation
+---
+
+## Legacy Overview (Archived)
 
 > **Note:** This library requires **React 16.3 or later**
 
